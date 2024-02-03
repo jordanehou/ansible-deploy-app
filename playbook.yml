@@ -10,15 +10,14 @@
 
   tasks:
     - name: Download Code with Curl
-      command: >
-        curl -u {{ username }}:{{ password }}
-        -O "http://ec2-16-16-63-168.eu-north-1.compute.amazonaws.com:8081/artifactory/geoapp/{{ target_file_path }}"
-      args:
-        executable: /bin/bash
+      command: curl -u {{ username }}:{{ password }} -O "http://ec2-16-16-63-168.eu-north-1.compute.amazonaws.com:8081/artifactory/geoapp/{{ target_file_path }}"
+
 
     - name: Move Downloaded File to /opt/
       command: mv "{{ target_file_path }}" /opt/
-      shell: cd /opt/ # Change directory to the location where curl downloaded the file
+    
+    - name: move to the opt folder
+      command: cd /opt/ # Change directory to the location where curl downloaded the file
 
     - name: Run the Java application
       command: java -jar {{ target_file_path }}
