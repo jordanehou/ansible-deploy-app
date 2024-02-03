@@ -18,6 +18,10 @@
     
     - name: move to the opt folder
       command: cd /opt/ # Change directory to the location where curl downloaded the file
+    
+    - name: where i am
+      command: pwd # Change directory to the location where curl downloaded the file
+
 
     - name: Run the Java application
       command: java -jar {{ target_file_path }}
