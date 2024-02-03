@@ -1,0 +1,33 @@
+pipeline{
+    agent any
+    tools{
+        maven 'M2_HOME'
+    }
+
+    stages{
+        stage('checkout'){
+            steps{
+                git branch: 'main', url: 'https://github.com/jordanehou/geo-july.git'
+            }
+        }
+        /*stage("scan the code"){
+            steps{
+                withSonaqubeEnv("sonarQube"){
+                    sh'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=jordanehou_geolocalisation'
+                    //sh 'mvn sonar:sonar'
+                }
+            }
+        }*/
+        stage("build the job"){
+            steps{
+                sh 'mvn clean install compile test package'
+            }
+        }
+        stage("store the artefactory"){
+            steps{
+               sh 'curl -u admin:password -T target/bio*.jar "http://ec2-51-21-135-76.eu-north-1.compute.amazonaws.com:8081/artifactory/geoapp/bio.jar"'
+            }
+        }
+
+    }
+}
