@@ -6,7 +6,7 @@
   vars:
     username: admin
     password: password
-    target_file_path: bio.jar  # Replace with the actual target file path
+    target_file_path: bio-2.jar  # Replace with the actual target file path
 
   tasks:
     - name: Download Code with Curl
